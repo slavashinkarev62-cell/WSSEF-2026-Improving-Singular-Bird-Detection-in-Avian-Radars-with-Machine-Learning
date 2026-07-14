@@ -1,19 +1,31 @@
-<img width="3000" height="2250" alt="confusion_matrix_normalized" src="https://github.com/user-attachments/assets/3ecff6f3-0c82-4cdb-ae82-cdf6c5d19023" />
-<img width="3000" height="2250" alt="confusion_matrix" src="https://github.com/user-attachments/assets/730d24be-8b1e-4149-995a-02985bb0fcdc" />
-<img width="2250" height="1500" alt="BoxR_curve" src="https://github.com/user-attachments/assets/34f2484c-30ca-496b-a77b-de171568aa26" />
-<img width="2250" height="1500" alt="BoxPR_curve" src="https://github.com/user-attachments/assets/4bbef88b-1c92-4561-aef0-8caa84b45d21" />
-<img width="2250" height="1500" alt="BoxP_curve" src="https://github.com/user-attachments/assets/5d35eb9a-b7f5-4d23-bb56-a16dc048b3bf" />
-<img width="2250" height="1500" alt="BoxF1_curve" src="https://github.com/user-attachments/assets/a78698a0-0ae9-4f68-beb4-9efe17f59fbc" />
-<img width="1920" height="1280" alt="val_batch2_pred" src="https://github.com/user-attachments/assets/d86d5b06-3a48-46d5-a5b0-79205510bb92" />
-<img width="1920" height="1280" alt="val_batch2_labels" src="https://github.com/user-attachments/assets/d78041d5-c251-4a6c-81bd-5cab5e3ca6e8" />
-<img width="1920" height="1280" alt="val_batch1_pred" src="https://github.com/user-attachments/assets/b340df3a-6004-4fb7-a76b-8efe8589c54d" />
-<img width="1920" height="1280" alt="val_batch1_labels" src="https://github.com/user-attachments/assets/19825c3c-26ba-4026-b1c0-1c6eb0125d6a" />
-<img width="1920" height="1192" alt="val_batch0_pred" src="https://github.com/user-attachments/assets/6487d207-4128-4dcb-89e3-607cd5de5966" />
-<img width="1920" height="1920" alt="train_batch5931" src="https://github.com/user-attachments/assets/918de8ed-c5cc-4e61-9b93-de561242bc0d" />
-<img width="1920" height="1920" alt="train_batch5930" src="https://github.com/user-attachments/assets/eb3f5664-2bfe-47eb-b3e1-73613378dfea" />
-<img width="1920" height="1920" alt="train_batch2" src="https://github.com/user-attachments/assets/4bc4340e-5719-40ad-a4b9-a6113a9aabb5" />
-<img width="1920" height="1920" alt="train_batch1" src="https://github.com/user-attachments/assets/7473e612-b273-43f7-a0ee-14722650a6cd" />
-<img width="1920" height="1920" alt="train_batch0" src="https://github.com/user-attachments/assets/e8b690ad-81af-43ca-8393-f2ecb46f0e3b" />
-<img width="2400" height="1200" alt="results" src="https://github.com/user-attachments/assets/c0c4f9f7-002e-4dbc-83ad-b89e6b80a602" />
+
 # WSSEF-2026-Improving-Singular-Bird-Detection-in-Avian-Radars-with-Machine-Learning
 Improving singular bird detection in avian radars using YOLO and BoT-SORT. Developed for the Washington State Science and Engineering Fair (WSSEF)."
+System Architecture
+Phase 1: Detection & Tracking (YOLOv8 & BoT-SORT) Acting as the system's eyes, the detection software analyzes continuous streams of raw Plan Position Indicator (PPI) radar imagery. Utilizing the YOLOv8 algorithm alongside BoT-SORT tracking, it scans each frame for high-intensity returns. The model draws bounding boxes around potential biological targets (individual birds or flocks), assigns them unique tracking IDs, and actively ignores static background clutter.
+Phase 2: Kinematic Analysis Once a target is isolated, the tracking script calculates its spatial movement across consecutive frames. By computing the coordinate distance between the target's past and current positions, the system estimates the object's velocity in knots. Simultaneously, it calculates the line-of-sight distance to predefined Cartesian runway coordinates to classify the target's trajectory as 'Inbound' or 'Outbound'.
+Phase 3: Threat Triage (LLM Integration) Calculated telemetry—including speed, size, runway distance, and heading—is serialized into a JSON format and fed into a Large Language Model. Acting as an automated triage officer, the LLM applies strict operational rules to filter out non-threats. This directly prevents alert fatigue by translating only the critical, intersecting trajectories into concise, actionable aviation safety warnings.
+Training Methodology & Data Strategy While the broader pipeline demonstrates the system's utility, the core technical contribution of this project is the custom-trained YOLOv8 model. A major challenge in development was the absence of publicly available datasets for avian PPI radar imagery. To overcome this and prove the concept, the model was trained on a Synthetic Aperture Radar (SAR) ship detection dataset. This served as a highly effective proxy for teaching the model to identify small, high-intensity returns against heavily cluttered backgrounds.
+Results & Performance Metrics The training results demonstrated exceptional promise, proving the viability of using YOLO and BoT-SORT technologies to improve radar efficiency. The model achieved the following metrics:
+mAP@0.5: 90.1%
+mAP@0.5-0.95: 61.4%
+Precision: 90.0%
+Recall: 81.0%
+Future Work While the proxy dataset established a strong baseline, the next phase of development requires evaluating and fine-tuning the model utilizing actual PPI imagery of biological targets to fully realize the technology's operational potential.
+
+Results/Documentation
+<img width="2400" height="1200" alt="results" src="https://github.com/user-attachments/assets/b3b58f27-4307-4664-ab2e-67cc58089cb5" />
+
+
+Example Training Batch #593
+<img width="1920" height="1920" alt="train_batch5930" src="https://github.com/user-attachments/assets/33d9c55c-3fdc-4a6b-9091-d9f91dd5a4e1" />
+
+Box_f1curve
+<img width="2250" height="1500" alt="BoxF1_curve" src="https://github.com/user-attachments/assets/4ea81a5f-18a9-4874-9833-81f696c6e1e2" />
+
+Labeling<img width="1600" height="1600" alt="labels" src="https://github.com/user-attachments/assets/ce0fad34-78c6-4bec-965a-1736e44de564" />
+
+
+
+
+
